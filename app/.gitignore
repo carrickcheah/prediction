@@ -14,7 +14,6 @@ MANIFEST
 CLAUDE.md
 agent.md
 agent.json
-/reference
 
 # Virtual environments
 .venv/
