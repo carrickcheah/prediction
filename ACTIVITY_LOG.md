@@ -1,3 +1,71 @@
+### 2025-08-01 - Advanced ML Techniques Integration from Reference Repositories
+- **Reference Material Analysis**:
+  - Analyzed `/reference/feature-engineering-for-time-series-forecasting` course
+  - Studied `/reference/forecasting-with-machine-learning` materials
+  - Identified 10 key improvements for inventory forecasting system
+- **Major Technical Decisions**:
+  - Adopted Multi-Series forecasting approach using `skforecast` library
+  - Will use `ForecasterAutoregMultiSeries` to handle 6000+ parts with single model
+  - Chose ensemble approach: recursive for short horizons, direct for long horizons
+  - Decided on custom asymmetric loss function (stockouts cost 3x overstock)
+- **Key Techniques Identified**:
+  - **Intermittent Demand Handling**: Zero run lengths, time since last demand
+  - **Hierarchical Features**: Product families, categories for shared learning
+  - **Dynamic Lead Time Learning**: Calculate from actual purchase history
+  - **Cyclical Encoding**: Better than one-hot for seasonal features
+  - **Change Point Detection**: Identify demand pattern shifts
+  - **Production Monitoring**: Track model drift and trigger retraining
+- **Advanced Features to Implement**:
+  - Demand volatility indicators (coefficient of variation)
+  - Interaction features (weekend × lag, holiday × season)
+  - Target encoding for categorical variables
+  - STL decomposition for outlier detection
+  - Multi-horizon ensemble predictions
+- **Validation Strategy**:
+  - Time series cross-validation with `TimeSeriesFold`
+  - Backtesting without data leakage
+  - Custom inventory-specific metrics
+  - Expanding window validation
+- **Documentation Updates**:
+  - Enhanced TODO.md with multi-series approach and advanced features
+  - Updated WORKFLOW.md with ensemble forecasting and monitoring
+  - Added production monitoring and model drift detection workflows
+
+### 2025-08-01 - Inventory Forecasting System Planning & Database Analysis
+- **Project Pivot**:
+  - Shifted focus from job scheduling to inventory forecasting system
+  - Identified critical business need: preventing stockouts and reducing excess inventory
+  - Current pain points: manual checking, human errors, forgotten updates
+- **Database Analysis**:
+  - Analyzed MariaDB database structure for prediction suitability
+  - Identified 7 key tables for inventory forecasting:
+    - `tbl_sorder_item` + `tbl_sorder_txn` (sales demand)
+    - `tbl_porder_item` + `tbl_porder_txn` (purchase supply)
+    - `tbl_jo_item` + `tbl_jo_txn` (manufacturing consumption)
+    - `tbl_product_code` (product master data)
+  - Discovered unreliable inventory data - decided to focus on transaction flow instead
+  - Found 8,766 total items with 6,588 unique stock codes
+- **Technical Decisions**:
+  - Chose part consumption approach over sales-based prediction
+  - Focus on actual usage patterns rather than theoretical BOM explosions
+  - Start with top 20 high-volume parts, scale to 6000+ later
+  - Selected XGBoost as primary ML model for predictions
+  - Will use simple moving averages as baseline for comparison
+- **Key SQL Queries Developed**:
+  - Top products by volume and revenue analysis
+  - Part consumption time series extraction
+  - Purchase order lead time calculation
+  - Daily consumption pattern analysis
+- **Architecture Planning**:
+  - Designed 4-phase implementation plan
+  - Created data flow architecture from database to reports
+  - Planned daily automated workflow (6 AM execution)
+  - Defined success metrics: 50% stockout reduction, 30% inventory reduction
+- **Documentation Created**:
+  - `WORKFLOW.md`: Complete system workflow and architecture
+  - `TODO.md`: Detailed phased implementation plan with checkboxes
+  - Updated project direction from scheduling to inventory forecasting
+
 ### 2025-07-23 - Database Optimization & Frontend Enhancement
 - **Database Performance Optimization**:
   - Identified slow "LOAD ALL JOBS FROM DATABASE" button performance (5-15 seconds)
