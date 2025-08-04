@@ -132,3 +132,6 @@ uv.lock
 # CSV files in data directories
 /data/**/*.csv
 /outputs/**/*.csv
+
+/reference
+
