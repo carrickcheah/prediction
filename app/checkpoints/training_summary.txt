@@ -1,6 +1,6 @@
-Training Summary - 2025-08-04 14:06:23.170438
+Training Summary - 2025-08-04 15:00:00.365472
 ================================================================================
-Total Parts: 14
+Total Parts: 795
 Successful: 14
-Failed: 0
+Failed: 781
 Average MAE: 0.040

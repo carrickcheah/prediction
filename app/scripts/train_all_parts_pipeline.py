@@ -329,7 +329,7 @@ class ScalableTrainingPipeline:
         self.logger.info("=" * 80)
         
         # Get all parts
-        all_parts = self.get_all_parts(min_data_points=30)
+        all_parts = self.get_all_parts(min_data_points=10)
         
         if max_parts:
             all_parts = all_parts.head(max_parts)

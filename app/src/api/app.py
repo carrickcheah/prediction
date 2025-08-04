@@ -67,6 +67,11 @@ async def verify_api_key(x_api_key: str = Header(None)):
     return True
 
 
+# Initialize routers with model cache
+predictions.init_router(model_cache)
+analytics.init_router(model_cache)
+reports.init_router(model_cache)
+
 # Include routers
 app.include_router(
     predictions.router,
