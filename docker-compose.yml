@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+  inventory-forecast:
+    build: .
+    container_name: inventory-forecast
+    env_file:
+      - app/.env
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+      - ./outputs:/app/outputs
+    networks:
+      - forecast-network
+    depends_on:
+      - mariadb
+
+  mariadb:
+    image: mariadb:latest
+    container_name: forecast-mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: nex_valiant
+      MYSQL_USER: myuser
+      MYSQL_PASSWORD: mypassword
+    ports:
+      - "3306:3306"
+    volumes:
+      - mariadb-data:/var/lib/mysql
+    networks:
+      - forecast-network
+
+  # Optional: Web dashboard
+  web:
+    build: .
+    container_name: forecast-web
+    command: ["uv", "run", "uvicorn", "web.app:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+    env_file:
+      - app/.env
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./app:/app
+    networks:
+      - forecast-network
+    depends_on:
+      - mariadb
+    profiles:
+      - web
+
+volumes:
+  mariadb-data:
+
+networks:
+  forecast-network:
+    driver: bridge
