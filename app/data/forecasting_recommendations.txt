@@ -1,0 +1,25 @@
+INVENTORY FORECASTING RECOMMENDATIONS
+==================================================
+Generated: 2025-08-04 12:30:36.177224
+
+1. INTERMITTENT DEMAND: Most parts show intermittent demand patterns (>50% zero days)
+   - Use Croston's method or similar for intermittent demand forecasting
+   - Consider zero-inflated models for parts with very high zero percentages
+
+2. DATA FREQUENCY: Manufacturing occurs on ~40 days out of 90 (weekdays only)
+   - Use business day frequency instead of calendar days
+   - Implement holiday calendar for better predictions
+
+3. SHORT HISTORY: Many parts have limited historical data
+   - Use hierarchical forecasting to share information across similar parts
+   - Implement transfer learning from parts with more history
+
+4. HIGH VARIABILITY: Several parts show CV > 1.0 (lumpy demand)
+   - Use safety stock calculations with higher service levels
+   - Consider ensemble methods combining multiple models
+
+5. FEATURE ENGINEERING PRIORITIES:
+   - Implement zero run length features
+   - Add time since last demand feature
+   - Create demand concentration indicators
+   - Build lead time features from purchase orders
